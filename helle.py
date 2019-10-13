@@ -2,5 +2,6 @@
 print("hello python!!")
 
 def add(a, b):
-    """Aèdev """
-    return a + b
+    """A and B dev """
+    c = a + b
+    return c
