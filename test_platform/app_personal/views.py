@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
 # 用来写请求的处理逻辑
 def hello(request):
     return render(request, "hello.html")
@@ -38,13 +38,6 @@ def login(request):
 
 
 @login_required
-def mange(request):
-    """
-    接口管理
-    """
-    return render(request, "manage.html")
-
-
 def logout(request):
     """退出"""
     auth.logout(request)

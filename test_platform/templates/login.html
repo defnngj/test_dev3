@@ -1,12 +1,19 @@
 <html>
 <head>
-    <link href='https://htmlstream.com/preview/space-v1.5.0/assets/css/theme.css' rel='stylesheet'  type='text/css' />
+   <!--方式一-->
+    <!--{% load static %}-->
+    <!--<link href='{% static "css/theme.css" %}' rel='stylesheet'  type='text/css' />-->
+    <!--<link rel="shortcut icon" href='{%static "favicon.ico" %}' />-->
+   <!--方式二-->
+    <link href="/static/css/theme.css" rel='stylesheet'  type='text/css' />
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <!--<link href='https://htmlstream.com/preview/space-v1.5.0/assets/css/theme.css' rel='stylesheet'  type='text/css' />-->
 </head>
 <body>
 
 <main id="content" role="main">
     <!-- Hero Section -->
-    <div class="gradient-overlay-half-dark-v3 bg-img-hero" style="background-image: url(../../assets/img/1920x1080/img4.jpg);">
+    <div class="gradient-overlay-half-dark-v3 bg-img-hero">
       <!-- Main Content -->
       <div class="d-lg-flex align-items-lg-center height-85vh--lg" style="background-color: #646f79;">
         <div class="container space-2 space-0--lg mt-lg-8">
