@@ -1,7 +1,6 @@
 <html>
 <head>
 
-    <!--方式二-->
     <link href="/static/css/classic.css" rel='stylesheet' type='text/css'/>
     <link rel="shortcut icon" href="/static/favicon.ico"/>
     <!--<link href='https://htmlstream.com/preview/space-v1.5.0/assets/css/theme.css' rel='stylesheet'  type='text/css' />-->
@@ -12,7 +11,6 @@
     <nav id="sidebar" class="sidebar">
 
         <!--导航-->
-
         <div class="sidebar-content ">
             <a class="sidebar-brand" href="index.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -121,9 +119,6 @@
                     </a>
                 </li>
             </ul>
-
-
-
         </div>
 
 
@@ -189,100 +184,101 @@
         <main class="content">
             <div class="container-fluid p-0">
 
-                <div class="row">
-                    <div class="col-12 col-lg-7 col-xl-8 d-flex">
-                        <div class="card flex-fill">
-                            <div class="card-header">
-                                <div class="card-actions float-right">
-                                    <div class="dropdown show">
-                                        <a href="#" data-toggle="dropdown" data-display="static">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round" stroke-linejoin="round"
-                                                 class="feather feather-more-horizontal align-middle">
-                                                <circle cx="12" cy="12" r="1"></circle>
-                                                <circle cx="19" cy="12" r="1"></circle>
-                                                <circle cx="5" cy="12" r="1"></circle>
-                                            </svg>
-                                        </a>
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <div class="card-actions float-right">
+                            <div class="dropdown show">
+                                <a href="#" data-toggle="dropdown" data-display="static">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-more-horizontal align-middle">
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="19" cy="12" r="1"></circle>
+                                        <circle cx="5" cy="12" r="1"></circle>
+                                    </svg>
+                                </a>
 
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
-                                <h5 class="card-title mb-0">项目管理</h5>
                             </div>
-                            <div id="datatables-dashboard-traffic_wrapper"
-                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6"></div>
-                                    <div class="col-sm-12 col-md-6"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <table id="datatables-dashboard-traffic"
-                                               class="table table-striped my-0 dataTable no-footer" role="grid"
-                                               aria-describedby="datatables-dashboard-traffic_info">
-                                            <thead>
-                                            <tr role="row">
-                                                <th >id</th>
-                                                <th >名称</th>
-                                                <th >描述</th>
-                                                <th >状态</th>
-                                                <th >创建时间</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
+                        </div>
+                        <h5 class="card-title mb-0">项目管理</h5>
+                    </div>
+                    <div id="datatables-dashboard-traffic_wrapper"
+                         class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6"></div>
+                            <div class="col-sm-12 col-md-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="datatables-dashboard-traffic"
+                                       class="table table-striped my-0 dataTable no-footer" role="grid"
+                                       aria-describedby="datatables-dashboard-traffic_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>id</th>
+                                        <th>名称</th>
+                                        <th>描述</th>
+                                        <th>状态</th>
+                                        <th>创建时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                                            {% for p in projects %}
-                                            <tr role="row" class="odd">
-                                                <td>{{p.id}}</td>
-                                                <td>{{p.name}}</td>
-                                                <td>{{p.status}}</td>
-                                                <td>{{p.describe}}</td>
-                                                <td>{{p.create_time}}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    {% for p in projects %}
+                                        <tr role="row" class="odd">
+                                            <td>{{ p.id }}</td>
+                                            <td>{{ p.name }}</td>
+                                            <td>{{ p.status }}</td>
+                                            <td>{{ p.describe }}</td>
+                                            <td>{{ p.create_time }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 翻页 -->
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="datatables-dashboard-traffic_info"
+                                     role="status" aria-live="polite">Showing 1 to 8 of 8 entries
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="datatables-dashboard-traffic_info"
-                                             role="status" aria-live="polite">Showing 1 to 8 of 8 entries
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers"
-                                             id="datatables-dashboard-traffic_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item previous disabled"
-                                                    id="datatables-dashboard-traffic_previous"><a href="#"
-                                                                                                  aria-controls="datatables-dashboard-traffic"
-                                                                                                  data-dt-idx="0"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">Previous</a>
-                                                </li>
-                                                <li class="paginate_button page-item active"><a href="#"
-                                                                                                aria-controls="datatables-dashboard-traffic"
-                                                                                                data-dt-idx="1"
-                                                                                                tabindex="0"
-                                                                                                class="page-link">1</a>
-                                                </li>
-                                                <li class="paginate_button page-item next disabled"
-                                                    id="datatables-dashboard-traffic_next"><a href="#"
-                                                                                              aria-controls="datatables-dashboard-traffic"
-                                                                                              data-dt-idx="2"
-                                                                                              tabindex="0"
-                                                                                              class="page-link">Next</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers"
+                                     id="datatables-dashboard-traffic_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled"
+                                            id="datatables-dashboard-traffic_previous">
+                                            <a href="#"
+                                               aria-controls="datatables-dashboard-traffic"
+                                               data-dt-idx="0"
+                                               tabindex="0"
+                                               class="page-link">Previous</a>
+                                        </li>
+                                        <li class="paginate_button page-item active">
+                                            <a href="#"
+                                               aria-controls="datatables-dashboard-traffic"
+                                               data-dt-idx="1"
+                                               tabindex="0"
+                                               class="page-link">1</a>
+                                        </li>
+                                        <li class="paginate_button page-item next disabled"
+                                            id="datatables-dashboard-traffic_next">
+                                            <a href="#"
+                                               aria-controls="datatables-dashboard-traffic"
+                                               data-dt-idx="2"
+                                               tabindex="0"
+                                               class="page-link">Next</a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -292,33 +288,6 @@
             </div>
         </main>
 
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row text-muted">
-                    <div class="col-6 text-left">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="#">Support</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="#">Help Center</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="#">Privacy</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="#">Terms of Service</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-6 text-right">
-                        <p class="mb-0">
-                            © 2019 - <a href="index.html" class="text-muted">AppStack</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
 
@@ -326,11 +295,11 @@
 <!--<a href="/logout/">退出</a>-->
 
 <!--{% for p in projects %}-->
-<!--<ul>-->
+    <!--<ul>-->
     <!--<li>{{ p.name }}</li>-->
     <!--<li>{{ p.name }}</li>-->
-<!--</ul>-->
-<!--{% endfor %}-->
+    <!--</ul>-->
+    <!--{% endfor %}-->
 
 </body>
 </html>
