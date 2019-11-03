@@ -4,7 +4,6 @@
 参考：https://docs.djangoproject.com/en/2.1/topics/forms/
 参考：https://docs.djangoproject.com/en/2.1/topics/forms/modelforms/
 
-
 1、创建表单 __forms.py__ 样例代码。
 
 ```python

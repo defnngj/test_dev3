@@ -1,17 +1,5 @@
-<html>
-<head>
-    <!--方式一-->
-    <!--{% load static %}-->
-    <!--<link href='{% static "css/theme.css" %}' rel='stylesheet'  type='text/css' />-->
-    <!--<link rel="shortcut icon" href='{%static "favicon.ico" %}' />-->
-
-    <!--方式二-->
-    <link href="/static/css/theme.css" rel='stylesheet' type='text/css'/>
-    <link href="/static/favicon.ico"  rel="shortcut icon" type='text/css'/>
-    <!--<link href='https://htmlstream.com/preview/space-v1.5.0/assets/css/theme.css' rel='stylesheet'  type='text/css' />-->
-</head>
-<body>
-
+{% extends "base.html" %}
+{% block base %}
 <main id="content" role="main">
     <div class="gradient-overlay-half-dark-v3 bg-img-hero">
         <div class="d-lg-flex align-items-lg-center height-85vh--lg" style="background-color: #354052;">
@@ -64,6 +52,4 @@
     </div>
 
 </main>
-
-</body>
-</html>
+{% endblock %}
