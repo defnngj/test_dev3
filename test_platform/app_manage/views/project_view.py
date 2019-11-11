@@ -6,12 +6,14 @@ from app_manage.forms import ProjectForm, ProjectEditForm
 
 
 @login_required
-def mange(request):
+def list_project(request):
     """
     项目管理
     """
+    username = request.COOKIES.get('user', '')
     project_list = Project.objects.all()
-    return render(request, "project_list.html", {"projects": project_list})
+    return render(request, "project/list.html", {"projects": project_list,
+                                                 "user": username})
 
 
 def add_project(request):
@@ -25,14 +27,14 @@ def add_project(request):
             print("sss", status, type(status))
             Project.objects.create(name=name, describe=describe, status=status)
 
-        return HttpResponseRedirect("/project/")
+        return HttpResponseRedirect("/manage/")
     else:
         form = ProjectForm()
-    return render(request, 'project_add.html', {'form': form})
+    return render(request, 'project/add.html', {'form': form})
 
 
 def edit_project(request, pid):
-    print("pid", pid)
+    """编辑项目"""
     if request.method == "POST":
         form = ProjectForm(request.POST)
         if form.is_valid():
@@ -45,21 +47,22 @@ def edit_project(request, pid):
             p.describe = describe
             p.status = status
             p.save()
-        return HttpResponseRedirect("/project/")
+        return HttpResponseRedirect("/manage/")
     else:
         if pid:
             p = Project.objects.get(id=pid)
             form = ProjectEditForm(instance=p)
         else:
             form = ProjectForm()
-        return render(request, 'project_edit.html', {
+        return render(request, 'project/edit.html', {
             'form': form, "id": pid})
 
 
 def delete_project(request, pid):
+    """删除项目"""
     if request.method == "GET":
         p = Project.objects.get(id=pid)
         p.delete()
-        return HttpResponseRedirect("/project/")
+        return HttpResponseRedirect("/manage/")
     else:
-        return HttpResponseRedirect("/project/")
+        return HttpResponseRedirect("/manage/")

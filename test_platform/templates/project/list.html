@@ -32,10 +32,10 @@
                             <td>{{ p.name }}</td>
                             <td>{{ p.status }}</td>
                             <td>{{ p.describe }}</td>
-                            <td>{{ p.create_time }}</td>
+                            <td>{{ p.create_time |date:"Y-m-d H:i:s"}}</td>
                             <td>
-                                <a href="/project/edit/{{p.id}}/">编辑</a>
-                                <a href="/project/delete/{{p.id}}/">删除</a>
+                                <a href="/manage/project_edit/{{p.id}}/">编辑</a>
+                                <a href="/manage/project_delete/{{p.id}}/">删除</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -75,7 +75,7 @@
 </div>
 <script>
     function add() {
-        window.location.href = "/project/add"; 
+        window.location.href = "/manage/project_add/";
     }
 </script>
 
