@@ -1,0 +1,23 @@
+{
+    "id": 2,
+    "name": "新项目BBB",
+    "moduleList": [
+       {
+        "id": 4,
+        "name": "模块AA"
+       },
+       {
+        "id": 5,
+        "name": "模块BB"
+       }
+    ]
+}
+
+<select class="custom-select" id="selelctProject">
+  <option value="2">新项目AAA</option> index=0
+</select>
+
+<select class="custom-select">
+  <option value="4">模块11</option> index=0
+  <option value="5">模块22</option> index=1
+</select>

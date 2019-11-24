@@ -12,12 +12,15 @@
         <div class="row">
             <div class="col-sm-12">
                 <div style="margin-left: 20px;margin-right: 20px; width: 80%">
-                    <div class="input-group" style="height: 50px;">
-                        <span class="input-group-addon" style="margin-top: 5px;margin-right: 10px;">URL：</span>
+                    
+                    <!-- URL -->
+                    <div class="input-group option">
+                        <span class="input-group-addon option-tile">URL：</span>
                         <input id="req_url" type="text" class="form-control" value="http">
                     </div>
 
-                    <div style="height: 50px;">
+                    <!-- 请求方法 -->
+                    <div class="option">
                         <label>* 请求方法：</label>
                         <label class="radio-inline">
                             <input type="radio" name="req_method" id="get" value="get" checked> GET
@@ -27,9 +30,14 @@
                         </label>
                     </div>
 
-                    <div class="input-group" style="height: 50px;">
-                        <span class="input-group-addon" style="margin-top: 5px;margin-right: 10px;">header</span>
-                        <input id="header" type="text" class="form-control" value="{}">
+                    <!-- 请求头 -->
+                    <div class="input-group">
+                        <span class="input-group-addon option-tile">header</span>
+                        <div class="input-group mb-3">
+                            <div class="input-group">
+                                <div id="headerEditor" style="width: 100%"></div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div style="margin-top: 10px;">
@@ -43,15 +51,14 @@
                     </div>
 
                     <div class="input-group" style="height: 230px;">
-                        <span class="input-group-addon" style="margin-top: 5px;margin-right: 10px;">参数：</span>
-                        <span class="input-group mb-3">
+                        <span class="input-group-addon option-tile">参数：</span>
+                        <div class="input-group mb-3">
                             <div class="input-group">
                                 <div id="parameterEditor" style="width: 100%"></div>
                             </div>
-                        </span>
+                        </div>
                     </div>
-                    <p style="color:#8B8989">说明：以字典的方式设置参数，如：{"id":1, "name":"名称"}</p>
-
+                    <p>说明：以字典的方式设置参数，如：{"id":1, "name":"名称"}</p>
 
                     <div style="float: right;margin-right: 10px;">
                         <button type="button" class="btn btn-primary" onclick="sendFun()">发送</button>
@@ -60,6 +67,50 @@
                     <div style="margin-top: 30px;">
                         <p>返回结果：</p>
                         <textarea id="result" class="form-control" rows="10" name=textarea></textarea>
+                    </div>
+
+                    <!-- 断言按钮 -->
+                    <div  style="float: right;margin-right: 10px; margin-top: 20px; height: 50px;">
+                        <button type="button" class="btn btn-primary" onclick="assertFun()">断言</button>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <label> 断言方法：</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="assert_type" id="include" value="include" checked> 包含
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="assert_type" id="equal" value="equal"> 相等
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <textarea id="assert" class="form-control" rows="10" name=textarea></textarea>
+                    </div>
+                    
+                    <!-- 选择项目 -->
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">项目：</label>
+                        <select class="form-control" id="selectProject">
+                        </select>
+                    </div>
+
+                    <!-- 选择模块 -->
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">模块：</label>
+                        <select class="form-control" id="selectModule">
+                        </select>
+                    </div>
+
+                    <!-- 用例的名称 -->
+                    <div class="input-group option">
+                        <span class="input-group-addon option-tile">名称：</span>
+                        <input id="case_name" type="text" class="form-control">
+                    </div>
+
+                    <!-- 保存用例 -->
+                    <div style="float: right;margin-right: 10px; margin-top: 20px; height: 50px;">
+                        <button type="button" class="btn btn-primary" onclick="saveFun()">保存</button>
                     </div>
                 </div>
 
@@ -74,21 +125,30 @@
 <script src="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.js"></script>
 <link href="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.js"></script>
+<script src="/static/js/manage.js"></script>
 <script type="text/javascript">
+    
+    //初始化
+    SelectInit()
 
     //初始化JSONeditor编辑框
+    var headers = document.getElementById("headerEditor");
     var parameters = document.getElementById("parameterEditor");
     var options = {
-        mode: "code",
+        mode: "code"
     };
+    var headerEditor = new JSONEditor(headers, options);
     var parameterEditor = new JSONEditor(parameters, options);
 
     function sendFun() {
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
-        req_header = $('#header').val();
+        // req_header = $('#header').val();
         req_type = $('input[name="par_type"]:checked').val();
-        req_parameter = parameterEditor.get(); //$('#parameter').val(); 
+
+        req_header = headerEditor.get(); 
+        req_parameter = parameterEditor.get(); 
+        let req_header_str = JSON.stringify(req_header, null, 2);
         let req_parameter_str = JSON.stringify(req_parameter, null, 2);
         console.log("req_par", req_parameter_str);  
 
@@ -100,7 +160,7 @@
         $.get("/case/send_req/", {
             url: req_url,
             method: req_method,
-            header: req_header,
+            header: req_header_str,
             per_type: req_type,
             per_value: req_parameter_str, 
         },
@@ -115,9 +175,85 @@
         });
         
     }
+
+    function assertFun() {
+        var result_text = $('#result').val();
+        var assert_text = $('#assert').val();
+        var assert_type = $('input[name="assert_type"]:checked').val();
+
+        if(result_text == "" || assert_text == ""){
+            window.alert("断言的结果不能为空！");
+        }
+
+        $.post("/case/assert_result/", { 
+            result_text: result_text,
+            assert_text: assert_text,
+            assert_type: assert_type,
+            }, function (resp) {
+                if(resp.code == 10200){
+                    window.alert(resp.message);
+                } else {
+                    window.alert(resp.message);
+                }
+        });
+    }
+
+    // 保存用例
+    function saveFun() {
+        req_url = $('#req_url').val();
+        req_method = $('input[name="req_method"]:checked').val();
+        req_type = $('input[name="par_type"]:checked').val();
+        req_header = headerEditor.get();
+        req_parameter = parameterEditor.get();
+        let req_header_str = JSON.stringify(req_header, null, 2);
+        let req_parameter_str = JSON.stringify(req_parameter, null, 2);
+
+        var result_text = $('#result').val();
+        var assert_text = $('#assert').val();
+        var assert_type = $('input[name="assert_type"]:checked').val();
+
+        var module_id = $('select[id="selectModule"]').val();
+        var case_name = $("#case_name").val();
+
+        if (req_url == "") {
+            window.alert("URL地址不能为空");
+            return;
+        }
+
+        $.post("/case/save_case/", {
+            url: req_url,
+            method: req_method,
+            header: req_header_str,
+            per_type: req_type,
+            per_value: req_parameter_str,
+            result_text: result_text,
+            assert_text: assert_text,
+            assert_type: assert_type,
+            module_id: module_id,
+            case_name: case_name
+        },function (resp) {
+                if (resp.code == 10200) {
+                    window.alert(resp.message);
+                } else {
+                    window.alert(resp.message);
+                }
+
+            });
+
+    }
+    
 </script>
 
 <style>
+    .option {
+        height: 50px;
+    }
+
+    .option-tile {
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+
     div.jsoneditor {
         border: thin solid #ced4da;
     }
