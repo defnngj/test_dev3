@@ -2,7 +2,7 @@
 {% block manage %}
 <div class="card flex-fill">
     <div class="card-header">
-        <h5 class="card-title mb-0" style="float:left">创建用例</h5>
+        <h5 class="card-title mb-0" style="float:left">编辑用例</h5>
     </div>
     <div id="datatables-dashboard-traffic_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
         <div class="row">
@@ -121,16 +121,19 @@
     </div>
 </div>
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.css">
-<script src="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.js"></script>
-<link href="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<link rel="stylesheet" href="/static/css/jquery.jsonview.css">
+<script src="/static/js/jquery.jsonview.js"></script>
+<link href="/static/css/jsoneditor.css" rel="stylesheet">
+<script src="/static/js/jsoneditor.js"></script>
 <script src="/static/js/manage.js"></script>
+<script src="/static/js/case.js"></script>
 <script type="text/javascript">
-    
     //初始化
-    SelectInit();
+    //SelectInit();
+
+    //获取用例的信息
+    getCaseInfo();
 
     //初始化JSONeditor编辑框
     var headers = document.getElementById("headerEditor");
@@ -147,11 +150,11 @@
         // req_header = $('#header').val();
         req_type = $('input[name="par_type"]:checked').val();
 
-        req_header = headerEditor.get(); 
-        req_parameter = parameterEditor.get(); 
-        let req_header_str = JSON.stringify(req_header, null, 2);
-        let req_parameter_str = JSON.stringify(req_parameter, null, 2);
-        console.log("req_par", req_parameter_str);  
+        req_header = headerEditor.get();
+        req_parameter = parameterEditor.get();
+        var req_header_str = JSON.stringify(req_header, null, 2);
+        var req_parameter_str = JSON.stringify(req_parameter, null, 2);
+        console.log("req_par", req_parameter_str);
 
         if (req_url == ""){
             window.alert("URL地址不能为空");
@@ -163,7 +166,7 @@
             method: req_method,
             header: req_header_str,
             per_type: req_type,
-            per_value: req_parameter_str, 
+            per_value: req_parameter_str,
         },
         function (resp) {
             console.log("resp", resp);
@@ -172,9 +175,8 @@
             } else {
                 window.alert(resp.message);
             }
-            
+
         });
-        
     }
 
     function assertFun() {
@@ -186,7 +188,7 @@
             window.alert("断言的结果不能为空！");
         }
 
-        $.post("/case/assert_result/", { 
+        $.post("/case/assert_result/", {
             result_text: result_text,
             assert_text: assert_text,
             assert_type: assert_type,
@@ -201,13 +203,15 @@
 
     // 保存用例
     function saveFun() {
+        var url = window.location.href;
+        var caseId = url.split("/")[5];
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
         req_type = $('input[name="par_type"]:checked').val();
         req_header = headerEditor.get();
         req_parameter = parameterEditor.get();
-        let req_header_str = JSON.stringify(req_header, null, 2);
-        let req_parameter_str = JSON.stringify(req_parameter, null, 2);
+        var req_header_str = JSON.stringify(req_header, null, 2);
+        var req_parameter_str = JSON.stringify(req_parameter, null, 2);
 
         var result_text = $('#result').val();
         var assert_text = $('#assert').val();
@@ -222,6 +226,7 @@
         }
 
         $.post("/case/save_case/", {
+            "cid": caseId,
             url: req_url,
             method: req_method,
             header: req_header_str,
