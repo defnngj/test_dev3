@@ -33,4 +33,7 @@ urlpatterns = [
     # 用例管理
     path('case/', include('app_case.urls')),
 
+    # 任务管理
+    path('task/', include('app_task.urls')),
+
 ]

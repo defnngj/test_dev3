@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.forms.models import model_to_dict
-from app_manage.models import Project, Module
+from app_manage.models import Project
+from app_manage.models import Module
 from app_case.models import TestCase
 
 
