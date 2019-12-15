@@ -1,0 +1,18 @@
+{
+    "测试POST接口（data）update": {
+        "url": "http://httpbin.org/post",
+        "method": "post",
+        "par": "{\"key\": \"value\"}"
+    },
+    "测试POST接口222": {
+        "url": "http://127.0.0,1/api/null",
+        "method": "post",
+        "par": "{\"key\": \"value\"}"
+    },
+    "测试POST接口（data）": {
+        "url": "http://httpbin.org/post",
+        "method": "post",
+        "par": "{\"key\": \"value\"}"
+    }
+
+}

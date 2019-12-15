@@ -97,6 +97,7 @@
 		console.log("cases", casesStr);
 
 		$.post("/task/save_task/", {
+		        tid: 0,
 				name: taskName,
 				desc: taskDesc,
 				cases: casesStr

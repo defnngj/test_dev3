@@ -35,7 +35,7 @@
                     </div>
                     <br>
 
-                    <button type="submit" class="btn btn-primary" onclick="add_task()">创建</button>
+                    <button type="submit" class="btn btn-primary" onclick="add_task()">保存</button>
                 </div>
 
             </div>
@@ -53,10 +53,10 @@
     var setting;
     var zNodes;
 
-    $(document).ready(function () {
-        var url = window.location.href;
-        var taskId = url.split("/")[5];
+    var url = window.location.href;
+    var taskId = url.split("/")[5];
 
+    $(document).ready(function () {
         setting = {
             check: {
                 enable: true,
@@ -100,8 +100,10 @@
 		var casesStr = JSON.stringify(cases);
 
 		console.log("cases", casesStr);
+        console.log("task id", taskId);
 
 		$.post("/task/save_task/", {
+		        tid: taskId,
 				name: taskName,
 				desc: taskDesc,
 				cases: casesStr

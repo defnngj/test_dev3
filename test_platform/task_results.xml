@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="1" file=".py" name="TaskTest-20191215155739" skipped="0" tests="1" time="0.519" timestamp="2019-12-15T15:57:39">
+		<testcase classname="TaskTest" file="app_task\extend\task_run.py" line="12" name="test_file_data_json_dict_dict_00001_测试POST接口_data_update" time="0.519" timestamp="2019-12-15T15:57:39">
+			<failure message="'https://httpbin.org/post' != '{\n  &quot;args&quot;: {}, \n  &quot;data&quot;: &quot;&quot;, \n  &quot;fil[391 chars]n}\n'
+- https://httpbin.org/post
++ {
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {
+    &quot;key&quot;: &quot;value&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Content-Length&quot;: &quot;9&quot;, 
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
+    &quot;Dccept-Encoding&quot;: &quot;none&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.22.0&quot;
+  }, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;113.97.33.167, 113.97.33.167&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/post&quot;
+}
+
+" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "C:\Python37\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "D:\class_dev\test_dev03\test_dev3\test_platform\app_task\extend\task_run.py", line 31, in test_file_data_json_dict_dict
+    self.assertEquals(assert_text, r.text)
+AssertionError: 'https://httpbin.org/post' != '{\n  "args": {}, \n  "data": "", \n  "fil[391 chars]n}\n'
+- https://httpbin.org/post
++ {
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "key": "value"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Content-Length": "9", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Dccept-Encoding": "none", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.22.0"
+  }, 
+  "json": null, 
+  "origin": "113.97.33.167, 113.97.33.167", 
+  "url": "https://httpbin.org/post"
+}
+
+
+]]>			</failure>
+			<system-out>
+<![CDATA[]]>			</system-out>
+			<system-err>
+<![CDATA[D:\class_dev\test_dev03\test_dev3\test_platform\app_task\extend\task_run.py:31: DeprecationWarning: Please use assertEqual instead.
+  self.assertEquals(assert_text, r.text)
+]]>			</system-err>
+		</testcase>
+	</testsuite>
+</testsuites>

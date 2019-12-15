@@ -1,0 +1,1 @@
+{"\u6d4b\u8bd5POST\u63a5\u53e3\uff08data\uff09update": {"url": "http://httpbin.org/post", "method": 2, "header": "{}", "parameter_type": 1, "parameter_body": "{\n  \"key\": \"value\"\n}", "assert_type": 1, "assert_text": "https://httpbin.org/post"}}

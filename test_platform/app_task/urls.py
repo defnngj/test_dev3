@@ -10,4 +10,7 @@ urlpatterns = [
     path('add/', views.task_add),
     path('edit/<int:tid>/', views.task_edit),
     path('save_task/', views.task_save),
+
+    path('run_task/<int:tid>/', views.task_rung),
+
 ]

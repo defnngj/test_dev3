@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from test_platform.common import response
 from app_manage.models import Project
 from app_manage.models import Module
 from app_case.models import TestCase
 from app_task.models import TestTask
+from app_task.extend.task_thread import TaskThread
 
 
 def task_list(request):
@@ -123,18 +125,42 @@ def case_node(request):
         return response(10100, "请求方法错误")
 
 
-
 def task_save(request):
     """保存任务"""
     if request.method == "POST":
+        task_id = request.POST.get("tid", "")
         task_name = request.POST.get("name", "")
         task_desc = request.POST.get("desc", "")
         task_cases = request.POST.get("cases", "")
         if task_name == "":
             return response(10102, "任务的名称为空")
-        TestTask.objects.create(name=task_name,
-                                describe=task_desc,
-                                cases=task_cases)
+
+        if task_id == 0:
+            TestTask.objects.create(name=task_name,
+                                    describe=task_desc,
+                                    cases=task_cases)
+        else:
+            task = TestTask.objects.get(id=task_id)
+            task.name = task_name
+            task.describe = task_desc
+            task.cases = task_cases
+            task.save()
         return response()
     else:
         return response(10101, "请求方法错误")
+
+
+def task_rung(request, tid):
+    """运行任务"""
+    task = TaskThread(tid)
+    task.run()
+    return HttpResponseRedirect("/task/")
+
+
+# 问题1，当执行到某一个接口的调用出错了，程序就断掉。 OK
+# 问题2，执行任务可能需要需要很长时间，前端可以半天拿不到结果。
+# 问题3，测试的结果怎么保存？ 结果怎么统计呢？ OK
+
+# unittest + ddt + xmlrunner + 线程
+# django 3.0 异步
+

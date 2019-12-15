@@ -42,6 +42,7 @@
                             <td>{{ t.describe }}</td>
                             <td>{{ t.create_time |date:"Y-m-d H:i:s"}}</td>
                             <td>
+                                <a href="/task/run_task/{{t.id}}/">运行</a>
                                 <a href="/task/edit/{{t.id}}/">编辑</a>
                                 <a href="/task/delete/{{t.id}}/">删除</a>
                             </td>

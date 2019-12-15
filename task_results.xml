@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="1" failures="0" file=".py" name="TaskTest-20191215150342" skipped="0" tests="3" time="1.069" timestamp="2019-12-15T15:03:44">
+		<testcase classname="TaskTest" file="task_demo.py" line="14" name="test_file_data_json_dict_dict_00001_测试POST接口_data_update" time="0.572" timestamp="2019-12-15T15:03:43">
+			<system-out>
+<![CDATA[{'args': {}, 'data': '{"key": "value"}', 'files': {}, 'form': {}, 'headers': {'Accept': '*/*', 'Content-Length': '16', 'Dccept-Encoding': 'none', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.22.0'}, 'json': {'key': 'value'}, 'origin': '113.97.33.167, 113.97.33.167', 'url': 'https://httpbin.org/post'}
+]]>			</system-out>
+			<system-err>
+<![CDATA[]]>			</system-err>
+		</testcase>
+		<testcase classname="TaskTest" file="task_demo.py" line="14" name="test_file_data_json_dict_dict_00003_测试POST接口_data_" time="0.478" timestamp="2019-12-15T15:03:44">
+			<system-out>
+<![CDATA[{'args': {}, 'data': '{"key": "value"}', 'files': {}, 'form': {}, 'headers': {'Accept': '*/*', 'Content-Length': '16', 'Dccept-Encoding': 'none', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.22.0'}, 'json': {'key': 'value'}, 'origin': '113.97.33.167, 113.97.33.167', 'url': 'https://httpbin.org/post'}
+]]>			</system-out>
+			<system-err>
+<![CDATA[]]>			</system-err>
+		</testcase>
+		<testcase classname="TaskTest" file="task_demo.py" line="14" name="test_file_data_json_dict_dict_00002_测试POST接口222" time="0.019" timestamp="2019-12-15T15:03:43">
+			<error message="HTTPConnectionPool(host='127.0.0,1', port=80): Max retries exceeded with url: /api/null (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001F10E760E10&gt;: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))" type="ConnectionError">
+<![CDATA[Traceback (most recent call last):
+  File "C:\Python37\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "C:\Python37\lib\site-packages\urllib3\util\connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "C:\Python37\lib\socket.py", line 748, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python37\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "C:\Python37\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "C:\Python37\lib\http\client.py", line 1229, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Python37\lib\http\client.py", line 1275, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Python37\lib\http\client.py", line 1224, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Python37\lib\http\client.py", line 1016, in _send_output
+    self.send(msg)
+  File "C:\Python37\lib\http\client.py", line 956, in send
+    self.connect()
+  File "C:\Python37\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "C:\Python37\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001F10E760E10>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python37\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "C:\Python37\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "C:\Python37\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0,1', port=80): Max retries exceeded with url: /api/null (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F10E760E10>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python37\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "task_demo.py", line 17, in test_file_data_json_dict_dict
+    r = requests.post(url, data=par)
+  File "C:\Python37\lib\site-packages\requests\api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "C:\Python37\lib\site-packages\requests\api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Python37\lib\site-packages\requests\sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Python37\lib\site-packages\requests\sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Python37\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0,1', port=80): Max retries exceeded with url: /api/null (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F10E760E10>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+]]>			</error>
+			<system-out>
+<![CDATA[]]>			</system-out>
+			<system-err>
+<![CDATA[]]>			</system-err>
+		</testcase>
+	</testsuite>
+</testsuites>
