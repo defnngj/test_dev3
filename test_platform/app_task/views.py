@@ -5,6 +5,7 @@ from app_manage.models import Project
 from app_manage.models import Module
 from app_case.models import TestCase
 from app_task.models import TestTask
+from app_task.models import TestResult
 from app_task.extend.task_thread import TaskThread
 
 
@@ -135,7 +136,8 @@ def task_save(request):
         if task_name == "":
             return response(10102, "任务的名称为空")
 
-        if task_id == 0:
+        print("task_id", task_id, type(task_id))
+        if task_id == "0":
             TestTask.objects.create(name=task_name,
                                     describe=task_desc,
                                     cases=task_cases)
@@ -157,10 +159,21 @@ def task_rung(request, tid):
     return HttpResponseRedirect("/task/")
 
 
-# 问题1，当执行到某一个接口的调用出错了，程序就断掉。 OK
-# 问题2，执行任务可能需要需要很长时间，前端可以半天拿不到结果。
-# 问题3，测试的结果怎么保存？ 结果怎么统计呢？ OK
+def log_list(request, tid):
+    """
+    获取某一任务的历史结果
+    """
+    result = TestResult.objects.filter(task_id=tid)
+    return render(request, "task/logs.html", {"result": result})
 
-# unittest + ddt + xmlrunner + 线程
-# django 3.0 异步
 
+def get_log(request):
+    """
+    获取某一任务的历史结果
+    """
+    if request.method == "POST":
+        rid = request.POST.get("rid", "")
+        result = TestResult.objects.get(id=rid)
+        return response(data=result.result)
+    else:
+        return response(10101, "请求方法错误")

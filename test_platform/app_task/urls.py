@@ -3,7 +3,7 @@ from app_task import views
 
 
 urlpatterns = [
-    # 项目管理
+    # 任务管理
     path('', views.task_list),
     path('case_node/', views.case_node),
 
@@ -12,5 +12,9 @@ urlpatterns = [
     path('save_task/', views.task_save),
 
     path('run_task/<int:tid>/', views.task_rung),
+    path('log/<int:tid>/', views.log_list),
+
+    path('get_log/', views.get_log),
+
 
 ]

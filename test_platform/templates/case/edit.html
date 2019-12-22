@@ -69,6 +69,13 @@
                         <textarea id="result" class="form-control" rows="10" name=textarea></textarea>
                     </div>
 
+                    <!-- 变量 -->
+                    <div class="input-group option" style="top: 10px;">
+                        <span class="input-group-addon option-tile">变量提取容器：</span>
+                        <input id="keyVariable" type="text" class="form-control" placeholder="key">
+                        <input id="valueVariable" type="text" class="form-control" placeholder="value">
+                    </div>
+
                     <!-- 断言按钮 -->
                     <div  style="float: right;margin-right: 10px; margin-top: 20px; height: 50px;">
                         <button type="button" class="btn btn-primary" onclick="assertFun()">断言</button>
@@ -214,6 +221,8 @@
         var req_parameter_str = JSON.stringify(req_parameter, null, 2);
 
         var result_text = $('#result').val();
+        var key_variable = $('#keyVariable').val();
+        var value_variable = $('#valueVariable').val();
         var assert_text = $('#assert').val();
         var assert_type = $('input[name="assert_type"]:checked').val();
 
@@ -233,6 +242,7 @@
             per_type: req_type,
             per_value: req_parameter_str,
             result_text: result_text,
+            variable: key_variable + "=>"+ value_variable,
             assert_text: assert_text,
             assert_type: assert_type,
             module_id: module_id,

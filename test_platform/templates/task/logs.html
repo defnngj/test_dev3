@@ -3,13 +3,8 @@
 <div class="card flex-fill">
     <div class="card-header">
         <h5 class="card-title mb-0" style="float:left">任务管理</h5>
-        <button onclick="add_task()" type="button" class="btn btn-primary" style="float:right">创建</button>
     </div>
     <div id="datatables-dashboard-traffic_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-        <div class="row">
-            <div class="col-sm-12 col-md-6"></div>
-            <div class="col-sm-12 col-md-6"></div>
-        </div>
         <div class="row">
             <div class="col-sm-12">
                 <table id="datatables-dashboard-traffic" class="table table-striped my-0 dataTable no-footer"
@@ -17,35 +12,31 @@
                     <thead>
                         <tr role="row">
                             <th>id</th>
-                            <th>名称</th>
-                            <th>描述</th>
-                            <th>状态</th>
-                            <th>创建时间</th>
+                            <th>name</th>
+                            <th>errors</th>
+                            <th>failures</th>
+                            <th>skipped</th>
+                            <th>tests</th>
+                            <th>run time</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        {% for t in tasks %}
+                        {% for r in result %}
                         <tr role="row" class="odd">
-                            <td>{{ t.id }}</td>
-                            <td>{{ t.name }}</td>
-                            {% if t.status == 0 %}
-                                <td>未执行</td>
-                            {% endif %}
-                            {% if t.status == 1 %}
-                                <td>执行中</td>
-                            {% endif %}
-                            {% if t.status == 2 %}
-                                <td>执行完成</td>
-                            {% endif %}
-                            <td>{{ t.describe }}</td>
-                            <td>{{ t.create_time |date:"Y-m-d H:i:s"}}</td>
+                            <td>{{ r.id }}</td>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.errors}}</td>
+                            <td>{{ r.failures}}</td>
+                            <td>{{ r.skipped}}</td>
+                            <td>{{ r.tests}}</td>
+                            <td>{{ r.run_time }}</td>
                             <td>
-                                <a href="/task/run_task/{{t.id}}/">运行</a>
-                                <a href="/task/edit/{{t.id}}/">编辑</a>
-                                <a href="/task/delete/{{t.id}}/">删除</a>
-                                <a href="/task/log/{{t.id}}/">日志</a>
+                                <button class="btn btn-primary btn-sm"
+                                        data-toggle="modal"
+                                        data-target="#myModal"
+                                onclick="getLog('{{r.id}}')">详情</button>
                             </td>
                         </tr>
                         {% endfor %}
@@ -81,12 +72,50 @@
                 </div>
             </div>
         </div>
+
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 600px;height: 600px;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">
+                        日志详情
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="log" class="form-control" rows="22" name=textarea></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     </div>
 </div>
+
+<script src="/static/js/jquery.min.js"></script>
 <script>
-    function add_task() {
-        window.location.href = "/task/add/";
+
+    function getLog(rid) {
+        console.log("日志的id", rid);
+
+        $.post("/task/get_log/", {
+            rid: rid
+            }, function (resp) {
+                if(resp.status == 10200){
+                    console.log("得到日志了", resp.data);
+                    document.querySelector("#log").value = resp.data;
+                } else {
+                    window.alert(resp.message);
+                }
+        });
     }
 </script>
-
 {% endblock %}
+
+

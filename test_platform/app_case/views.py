@@ -1,3 +1,4 @@
+import re
 import json
 import requests
 from django.shortcuts import render
@@ -7,12 +8,13 @@ from django.forms.models import model_to_dict
 from app_manage.models import Project
 from app_manage.models import Module
 from app_case.models import TestCase
+from app_variable.models import Variable
 
 
 def list_case(request):
     """用例列表"""
     cases = TestCase.objects.all()
-    p = Paginator(cases, 2)
+    p = Paginator(cases, 10)
     page = request.GET.get("page", "")
     if page == "":
         page = 1
@@ -49,13 +51,13 @@ def send_req(request):
         per_type = request.GET.get("per_type", "")
         per_value = request.GET.get("per_value", "")
 
-        print("url--->", url, type(url))
-        print("header--->", header, type(header))
-        print("method--->", method, type(method))
-        print("per_type--->", per_type, type(per_type))
-        print("per_value--->", per_value, type(per_value))
         if url == "":
             return JsonResponse({"code": 10101, "message": "URL不能为空！"})
+
+        if "${" in url and "}" in url:
+            key = re.findall(r"\${(.+?)}", url)
+            variable = Variable.objects.get(key=key[0])
+            url = variable.value
 
         try:
             header = json.loads(header)
@@ -149,10 +151,18 @@ def save_case(request):
         per_type = request.POST.get("per_type", "")
         per_value = request.POST.get("per_value", "")
         result_text = request.POST.get("result_text", "")
+        variable = request.POST.get("variable", "")
         assert_text = request.POST.get("assert_text", "")
         assert_type = request.POST.get("assert_type", "")
         module_id = request.POST.get("module_id", "")
         case_name = request.POST.get("case_name", "")
+
+        if variable != "":
+            print(variable)
+            key = variable.split("=>")[0]
+            value = variable.split("=>")[1]
+            real_value = re.findall(value, result_text)
+            Variable.objects.create(key=key, value=real_value[0])
 
         if method == "get":
             method_int = 1

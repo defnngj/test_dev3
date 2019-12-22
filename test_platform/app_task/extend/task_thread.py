@@ -15,13 +15,13 @@ class TaskThread:
         self.task_id = task_id
 
     def run_cases(self):
-        # 1、获取任务下面用例id列表
+        print("1、获取任务下面用例id列表")
         task = TestTask.objects.get(id=self.task_id)
         cases_list = task.cases[1:-1].split(",")
         task.status = 1
         task.save()
 
-        # 2、通过用例ID 将用例写到 task_data.json文件里面
+        print("2、通过用例ID 将用例写到 task_data.json文件里面")
         cases_dict = {}
         for case in cases_list:
             case = TestCase.objects.get(id=case)
@@ -56,6 +56,7 @@ class TaskThread:
 
     def save_result(self):
         """保存测试结果"""
+        print("保存测试结果")
         f = open(TASK_RESULTS, 'r', encoding='utf-8')
         xml_results = f.read()
         f.close()
@@ -69,6 +70,7 @@ class TaskThread:
         tests = test_suite[0].getAttribute("tests")
         time = test_suite[0].getAttribute("time")
 
+        print("保存测试结果", self.task_id)
         TestResult.objects.create(
             task_id=self.task_id,
             name=name,
