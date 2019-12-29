@@ -97,7 +97,7 @@ def assert_result(request):
             return JsonResponse({"code": 10101, "message": "断言的参数不能为空"})
 
         if assert_type != "include" and assert_type != "equal":
-            return JsonResponse({"code": 10101, "message": "断言的参数不能为空"})
+            return JsonResponse({"code": 10102, "message": "断言的类型错误"})
 
         if assert_type == "include":
             if assert_text in result_text:
@@ -112,6 +112,8 @@ def assert_result(request):
                 return JsonResponse({"code": 10200, "message": "断言相等失败"})
 
         return JsonResponse({"code": 10102, "message": "fail"})
+    else:
+        return JsonResponse({"code": 10100, "message": "请求方法错误"})
 
 
 def get_select_data(request):
